@@ -12,6 +12,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import RidesBottomSheet from '../components/RidesBottomSheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { cores } from '../cores';
+import { mapSilver } from '../mapStyles';
 
 
 const Home = ({navigation}) => {
@@ -103,7 +104,7 @@ useEffect(()=>{
            <Text style={{fontSize:14,fontWeight:'bold'}}>{isOnline?'Online':'Offline'}</Text>
         </Pressable>
       {location&&<MapView 
-               
+                customMapStyle={mapSilver}
                 style={StyleSheet.absoluteFill}
                 showsUserLocation={true}
                 showsMyLocationButton={true}

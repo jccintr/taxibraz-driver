@@ -10,11 +10,15 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import RideBottomSheet from '../components/RideBottomSheet';
 import { cores } from '../cores';
 import { RidesContext } from '../context/RidesContext';
-import { Octicons,MaterialCommunityIcons,Ionicons,FontAwesome } from '@expo/vector-icons';
+import { MaterialCommunityIcons,Ionicons } from '@expo/vector-icons';
 import util from '../util';
 import api from '../api/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ModalCancelRide from '../components/modals/ModalCancelRide';
+import { useKeepAwake } from 'expo-keep-awake';
+import startMarker from '../assets/start-marker-250x300.png';
+import finishMarker from '../assets/finish-marker-250x300.png';
+import { mapSilver } from '../mapStyles';
 
 
 
@@ -29,7 +33,7 @@ const Ride = ({navigation}) => {
   const [isLoadingCancel,setIsLoadingCancel] = useState(false);
   const [modalVisible,setModalVisible] = useState(false);
   const [motivoCancelamento,setMotivoCancelamento] = useState('');
-
+  useKeepAwake();
 
   useEffect(()=>{
 
@@ -155,6 +159,7 @@ const cancelRide = async () => {
           </View>
 
           {location&&<MapView 
+              customMapStyle={mapSilver}
               ref={mapRef}
               style={StyleSheet.absoluteFill}
               showsUserLocation={true}
@@ -170,11 +175,11 @@ const cancelRide = async () => {
               }}
           >
               <Marker title='De:' description={activeRide?.origem.address} coordinate={{latitude:activeRide?.origem.latitude,longitude:activeRide?.origem.longitude}} >
-                  <MaterialCommunityIcons name="map-marker-radius" size={30} color={cores.startMarker} />
+                   <Image  source={startMarker} style={{width:33,height:40}}/>
               </Marker>
 
-              <Marker title='Para:' description={activeRide?.destino.address} coordinate={{latitude:activeRide?.destino.latitude,longitude:activeRide?.destino.longitude}}>
-                 <MaterialCommunityIcons name="map-marker-radius" size={30} color={cores.finishMarker} />
+              <Marker title='Até:' description={activeRide?.destino.address} coordinate={{latitude:activeRide?.destino.latitude,longitude:activeRide?.destino.longitude}}>
+                  <Image  source={finishMarker} style={{width:33,height:40}}/>
               </Marker>
 
               <MapViewDirections

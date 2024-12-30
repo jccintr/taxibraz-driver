@@ -70,12 +70,7 @@ const talk = () => {
             label="Meus Ganhos"
             onPress={() => navigation.navigate('ganhos')}
          />
-          <DrawerItem
-            icon={()=><FontAwesome6 name="whatsapp" size={24} color="black" />}
-            label="Fale conosco"
-            onPress={() => talk()}
-         />
-        
+                 
         <DrawerItem
             icon={()=><MaterialIcons name="logout" size={24} color="black" />}
             label="Sair"

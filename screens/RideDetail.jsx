@@ -6,15 +6,17 @@ import { AuthContext } from '../context/AuthContext';
 import { RidesContext } from '../context/RidesContext';
 import MapView,{PROVIDER_GOOGLE,Marker} from 'react-native-maps';
 import { GOOGLE_MAPS_API_KEY } from './../constants';
-import { Octicons,FontAwesome } from '@expo/vector-icons';
+//import { Octicons,FontAwesome } from '@expo/vector-icons';
 import { cores } from '../cores';
 import RideDetailPanel from '../components/panels/RideDetailPanel';
 import Botao from '../components/reusable/Botao';
 //import HeightSpacer from '../components/reusable/HeightSpacer';
 import api from '../api/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-
+//import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import startMarker from '../assets/start-marker-250x300.png';
+import finishMarker from '../assets/finish-marker-250x300.png';
+import { mapSilver } from '../mapStyles';
 
 
 const RideDetail = ({route,navigation}) => {
@@ -57,6 +59,7 @@ const RideDetail = ({route,navigation}) => {
        <StatusBar animated={true} backgroundColor={'#fff'} barStyle="dark-content"/>
        <View style={{flex:1}}>
           <MapView 
+                  customMapStyle={mapSilver}
                   ref={mapRef}
                   style={styles.map}
                   showsUserLocation={true}
@@ -73,10 +76,10 @@ const RideDetail = ({route,navigation}) => {
               >
 
              <Marker title='De:' description={ride.origem.address} coordinate={{latitude:ride.origem.latitude,longitude:ride.origem.longitude}}>
-                  <MaterialCommunityIcons name="map-marker-radius" size={30} color={cores.startMarker} />
+                <Image  source={startMarker} style={{width:33,height:40}}/>
              </Marker>
-             <Marker title ='Para:' description={ride.destino.address} coordinate={{latitude:ride.destino.latitude,longitude:ride.destino.longitude}}>
-                 <MaterialCommunityIcons name="map-marker-radius" size={30} color={cores.finishMarker} />
+             <Marker title ='Até:' description={ride.destino.address} coordinate={{latitude:ride.destino.latitude,longitude:ride.destino.longitude}}>
+                 <Image  source={finishMarker} style={{width:33,height:40}}/>
             </Marker>
              <MapViewDirections
                 origin={{latitude:ride.origem.latitude,longitude:ride.origem.longitude}}
